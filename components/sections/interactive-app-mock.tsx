@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, Reorder } from 'framer-motion';
 import {
   LayoutGrid,
@@ -31,11 +31,34 @@ const NAV: { id: Tab; label: string; icon: typeof LayoutGrid; badge?: number }[]
   { id: 'calendar', label: 'Team Calendar', icon: CalendarRange },
 ];
 
+const TAB_ORDER: Tab[] = ['deals', 'mandates', 'knowledge', 'calendar', 'today'];
+
 export function InteractiveAppMock() {
   const [tab, setTab] = useState<Tab>('deals');
+  const [paused, setPaused] = useState(false);
+
+  // auto-cycle tabs every 5s unless the user clicks something
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setTab((current) => {
+        const i = TAB_ORDER.indexOf(current);
+        return TAB_ORDER[(i + 1) % TAB_ORDER.length];
+      });
+    }, 5200);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  function selectTab(id: Tab) {
+    setPaused(true);
+    setTab(id);
+  }
 
   return (
-    <div className="relative rounded-2xl overflow-hidden bg-surface border border-hairline shadow-card">
+    <div
+      className="relative rounded-2xl overflow-hidden bg-surface border border-hairline shadow-card"
+      onPointerEnter={() => setPaused(true)}
+    >
       {/* top bar */}
       <div className="flex items-center gap-3 border-b border-hairline bg-surface px-4 py-3">
         <button type="button" className="rounded-md p-1 text-ink-muted hover:bg-elevated press" title="Toggle sidebar">
@@ -76,7 +99,7 @@ export function InteractiveAppMock() {
                 <li key={id}>
                   <button
                     type="button"
-                    onClick={() => setTab(id)}
+                    onClick={() => selectTab(id)}
                     className={`relative w-full text-left flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm transition-colors press ${
                       active ? 'bg-ink text-white' : 'text-ink-muted hover:text-ink hover:bg-elevated'
                     }`}
@@ -125,20 +148,33 @@ export function InteractiveAppMock() {
           <AnimatePresence mode="wait">
             <motion.div
               key={tab}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -8, filter: 'blur(6px)' }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
               {tab === 'today' && <TodayView />}
-              {tab === 'deals' && <DealLoggerView />}
+              {tab === 'deals' && <DealLoggerView paused={paused} />}
               {tab === 'mandates' && <LiveMandatesView />}
-              {tab === 'knowledge' && <KnowledgeView />}
+              {tab === 'knowledge' && <KnowledgeView paused={paused} />}
               {tab === 'calendar' && <CalendarView />}
             </motion.div>
           </AnimatePresence>
         </div>
       </div>
+
+      {/* tab progress indicator — only when auto-playing */}
+      {!paused && (
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-hairline">
+          <motion.div
+            key={tab}
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: 5.2, ease: 'linear' }}
+            className="h-full bg-gradient-to-r from-dv-blue via-dv-indigo to-dv-violet"
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -169,16 +205,39 @@ const STAGE_DOT: Record<string, string> = {
   Closed: 'bg-dv-mint',
 };
 
-function DealLoggerView() {
-  const initial: Record<string, { firm: string; size: string }[]> = {
+function DealLoggerView({ paused }: { paused: boolean }) {
+  // start the auto-show in Pre-Mandate, advance Helix → Mandate, then back
+  const phaseA: Record<string, { firm: string; size: string }[]> = {
     Origination: [{ firm: 'Arclight Capital', size: '' }, { firm: 'Crescent Pharma', size: '$150M' }],
     Pitching: [{ firm: 'Helios Infra', size: '$150M' }],
-    'Pre-Mandate': [{ firm: 'Quantum Edge', size: '$80M' }, { firm: 'BluePeak Logistics', size: '$25M' }],
+    'Pre-Mandate': [{ firm: 'Helix Therapeutics', size: '$340M' }, { firm: 'Quantum Edge', size: '$80M' }, { firm: 'BluePeak Logistics', size: '$25M' }],
     Mandate: [{ firm: 'Nimbus Health', size: '$80M' }, { firm: 'Saffron Studios', size: '$40M' }],
     Closed: [{ firm: 'Meridian Energy', size: '$400M' }],
   };
+  const phaseB: Record<string, { firm: string; size: string }[]> = {
+    Origination: [{ firm: 'Arclight Capital', size: '' }, { firm: 'Crescent Pharma', size: '$150M' }],
+    Pitching: [{ firm: 'Helios Infra', size: '$150M' }],
+    'Pre-Mandate': [{ firm: 'Quantum Edge', size: '$80M' }, { firm: 'BluePeak Logistics', size: '$25M' }],
+    Mandate: [{ firm: 'Helix Therapeutics', size: '$340M' }, { firm: 'Nimbus Health', size: '$80M' }, { firm: 'Saffron Studios', size: '$40M' }],
+    Closed: [{ firm: 'Meridian Energy', size: '$400M' }],
+  };
 
-  const [cards, setCards] = useState(initial);
+  const [phase, setPhase] = useState<'A' | 'B'>('A');
+  const [cards, setCards] = useState(phaseA);
+
+  // auto-advance the Helix card between Pre-Mandate and Mandate every 2.5s
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setPhase((p) => {
+        const next = p === 'A' ? 'B' : 'A';
+        setCards(next === 'A' ? phaseA : phaseB);
+        return next;
+      });
+    }, 2400);
+    return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [paused]);
 
   return (
     <div>
@@ -189,13 +248,12 @@ function DealLoggerView() {
 
       <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: 'Active mandates', value: 7, sub: 'Engaged through Mandate', icon: TrendingUp, active: true },
+          { label: 'Active mandates', value: phase === 'A' ? 7 : 8, sub: 'Engaged through Mandate', icon: TrendingUp, active: true },
           { label: 'In Origination', value: 2, sub: 'Talks have started', icon: Briefcase },
-          { label: 'In Pre-Mandate', value: 2, sub: 'Paperwork underway', icon: Activity },
+          { label: 'In Pre-Mandate', value: phase === 'A' ? 3 : 2, sub: 'Paperwork underway', icon: Activity },
           { label: 'Closed', value: 1, sub: 'All-time wins', icon: FolderOpen },
         ].map((s) => (
-          <motion.button
-            type="button"
+          <motion.div
             key={s.label}
             whileHover={{ y: -2 }}
             className={`text-left rounded-2xl border p-4 transition-all ${s.active ? 'border-dv-blue/30 bg-stage-pre-mandate/40 ring-accent' : 'border-hairline bg-surface'}`}
@@ -204,9 +262,13 @@ function DealLoggerView() {
               <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-subtle">{s.label}</div>
               <s.icon className="size-3.5 text-ink-subtle" />
             </div>
-            <div className="mt-3 text-3xl font-semibold tracking-tight">{s.value}</div>
+            <div className="mt-3 text-3xl font-semibold tracking-tight">
+              <motion.span key={s.value} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+                {s.value}
+              </motion.span>
+            </div>
             <div className="mt-1 text-[11px] text-ink-muted">{s.sub}</div>
-          </motion.button>
+          </motion.div>
         ))}
       </div>
 
@@ -257,7 +319,7 @@ function DealLoggerView() {
             <span className="font-semibold">{STAGES.length}</span>
             <span className="text-ink-muted"> stages</span>
           </div>
-          <span className="dv-pill">→ Drag to advance</span>
+          <span className="dv-pill animate-pulse-soft">→ Auto-advancing</span>
         </div>
         <div className="mt-3 grid grid-cols-5 gap-2 overflow-x-auto">
           {STAGES.map((col) => (
@@ -269,24 +331,25 @@ function DealLoggerView() {
                 </div>
                 <span className="font-mono text-[10px] text-ink-subtle">{cards[col].length}</span>
               </div>
-              <Reorder.Group
-                axis="y"
-                values={cards[col]}
-                onReorder={(next) => setCards((c) => ({ ...c, [col]: next }))}
-                className="mt-2 space-y-1.5"
-              >
-                {cards[col].map((card) => (
-                  <Reorder.Item
-                    key={card.firm}
-                    value={card}
-                    className="cursor-grab active:cursor-grabbing rounded-md border border-hairline bg-surface px-2.5 py-2 select-none shadow-card"
-                    whileDrag={{ scale: 1.05, zIndex: 10, boxShadow: '0 20px 40px -16px rgba(15,23,42,0.25)' }}
-                  >
-                    <div className="font-medium text-[12px] text-ink">{card.firm}</div>
-                    {card.size && <div className="font-mono text-[10px] text-ink-muted mt-0.5">{card.size}</div>}
-                  </Reorder.Item>
-                ))}
-              </Reorder.Group>
+              <div className="mt-2 space-y-1.5">
+                <AnimatePresence>
+                  {cards[col].map((card) => (
+                    <motion.div
+                      layout
+                      layoutId={`pipe-${card.firm}`}
+                      key={card.firm}
+                      initial={{ opacity: 0, scale: 0.94 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.94 }}
+                      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                      className="rounded-md border border-hairline bg-surface px-2.5 py-2 shadow-card"
+                    >
+                      <div className="font-medium text-[12px] text-ink">{card.firm}</div>
+                      {card.size && <div className="font-mono text-[10px] text-ink-muted mt-0.5">{card.size}</div>}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
             </div>
           ))}
         </div>
@@ -305,12 +368,18 @@ function TodayView() {
           { firm: 'Helix Therapeutics', note: 'CFO open to revised IM if pre-money trims 8%', tone: 'bg-stage-mandate' },
           { firm: 'Aurora Industries', note: 'NDA signed by 2 more counterparties', tone: 'bg-stage-pre-mandate' },
           { firm: 'Northwind Logistics', note: 'Past median velocity by 12 days', tone: 'bg-stage-pitching' },
-        ].map((c) => (
-          <div key={c.firm} className={`rounded-2xl border border-hairline ${c.tone} p-4`}>
+        ].map((c, i) => (
+          <motion.div
+            key={c.firm}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className={`rounded-2xl border border-hairline ${c.tone} p-4`}
+          >
             <div className="text-[11px] font-mono uppercase tracking-[0.12em] text-ink-subtle">In progress</div>
             <div className="mt-2 text-[14px] font-semibold">{c.firm}</div>
             <div className="mt-2 text-[12px] text-ink-muted leading-5">{c.note}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -335,8 +404,14 @@ function LiveMandatesView() {
           <span className="col-span-2 text-right">Size</span>
           <span className="col-span-1 text-right">Cp</span>
         </div>
-        {rows.map((r) => (
-          <div key={r.firm} className="grid grid-cols-12 items-center border-t border-hairline px-3 py-2.5 text-[12px] hover:bg-elevated">
+        {rows.map((r, i) => (
+          <motion.div
+            key={r.firm}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-12 items-center border-t border-hairline px-3 py-2.5 text-[12px] hover:bg-elevated"
+          >
             <span className="col-span-4 font-medium">{r.firm}</span>
             <span className="col-span-3 text-ink-muted inline-flex items-center gap-1.5">
               <span className={`size-1.5 rounded-full ${STAGE_DOT[r.stage]}`} />
@@ -345,29 +420,52 @@ function LiveMandatesView() {
             <span className="col-span-2 text-ink-muted">{r.sector}</span>
             <span className="col-span-2 text-right font-mono">{r.size}</span>
             <span className="col-span-1 text-right font-mono text-ink-muted">{r.counter}</span>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
   );
 }
 
-function KnowledgeView() {
-  const sectors = ['Healthcare', 'Industrials', 'Consumer', 'FinServ', 'Energy'];
+const SECTORS = ['Healthcare', 'Industrials', 'Consumer', 'FinServ', 'Energy'];
+
+function KnowledgeView({ paused }: { paused: boolean }) {
   const [sector, setSector] = useState('Healthcare');
+
+  // auto-cycle sectors every 2s while parent is auto-playing
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setSector((s) => SECTORS[(SECTORS.indexOf(s) + 1) % SECTORS.length]);
+    }, 1800);
+    return () => clearInterval(t);
+  }, [paused]);
+
   return (
     <div>
       <div className="text-[11px] font-mono uppercase tracking-[0.14em] text-ink-subtle">Knowledge</div>
-      <div className="text-[28px] font-semibold mt-1 tracking-tight">{sector} memos &amp; comps.</div>
+      <div className="text-[28px] font-semibold mt-1 tracking-tight">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={sector}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3 }}
+          >
+            {sector} memos &amp; comps.
+          </motion.span>
+        </AnimatePresence>
+      </div>
       <div className="mt-5 grid grid-cols-3 gap-3">
         <div className="col-span-1 rounded-2xl border border-hairline bg-surface p-3">
           <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-ink-subtle px-1">Sectors</div>
           <ul className="mt-2 space-y-0.5 text-[12px]">
-            {sectors.map((s) => (
+            {SECTORS.map((s) => (
               <li
                 key={s}
                 onClick={() => setSector(s)}
-                className={`rounded-md px-2 py-1 cursor-pointer press ${s === sector ? 'bg-ink text-white' : 'text-ink-muted hover:bg-elevated'}`}
+                className={`rounded-md px-2 py-1 cursor-pointer press transition-colors ${s === sector ? 'bg-ink text-white' : 'text-ink-muted hover:bg-elevated'}`}
               >
                 {s}
               </li>
@@ -375,9 +473,9 @@ function KnowledgeView() {
           </ul>
         </div>
         <div className="col-span-2 rounded-2xl border border-hairline bg-surface p-4">
-          <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-ink-subtle">{sector} / Therapeutics · Memo</div>
+          <div className="text-[10px] font-mono uppercase tracking-[0.12em] text-ink-subtle">{sector} / Memo</div>
           <p className="mt-2 text-[12px] leading-5 text-ink-muted">
-            Series C biologics platform. Comps:{' '}
+            Live mandates in <span className="text-ink font-medium">{sector}</span>. Comps:{' '}
             <span className="rounded bg-stage-mandate px-1.5 py-0.5 font-mono text-dv-blue cursor-pointer">[[Genoptix]]</span>,{' '}
             <span className="rounded bg-stage-pre-mandate px-1.5 py-0.5 font-mono text-dv-indigo cursor-pointer">[[Praxis Pharma]]</span>.{' '}
             <span className="rounded bg-stage-pitching px-1.5 py-0.5 font-mono text-amber-700 cursor-pointer">[[Apollo Healthcare]]</span> reviewing IM since 12 Feb.
@@ -411,8 +509,14 @@ function CalendarView() {
           <div key={day} className="rounded-2xl border border-hairline bg-surface p-2 min-h-[200px]">
             <div className="px-1 font-mono text-[9px] uppercase tracking-[0.12em] text-ink-subtle">{day}</div>
             <div className="mt-2 space-y-1.5">
-              {events.filter((e) => e.d === i).map((e) => (
-                <motion.div key={e.t + e.label} whileHover={{ y: -2 }} className={`cursor-pointer rounded-md px-2 py-1 text-[10px] ${e.tone}`}>
+              {events.filter((e) => e.d === i).map((e, k) => (
+                <motion.div
+                  key={e.t + e.label}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 + k * 0.08 }}
+                  className={`cursor-pointer rounded-md px-2 py-1 text-[10px] ${e.tone}`}
+                >
                   <div className="font-mono">{e.t}</div>
                   <div className="font-medium leading-tight">{e.label}</div>
                 </motion.div>
