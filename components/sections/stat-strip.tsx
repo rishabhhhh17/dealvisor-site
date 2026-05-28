@@ -13,21 +13,13 @@ const stats: Array<{ to: number; prefix?: string; suffix?: string; decimals?: nu
 
 export function StatStrip() {
   return (
-    <section className="relative bg-surface border-y border-hairline">
-      <div className="dv-container py-20 lg:py-28">
-        <Reveal>
-          <div className="text-center max-w-2xl mx-auto">
-            <span className="dv-eyebrow">By the numbers</span>
-            <h2 className="mt-5 text-display-2 text-balance">
-              Battle-tested on <span className="text-accent">real mandates.</span>
-            </h2>
-          </div>
-        </Reveal>
-        <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 max-w-5xl mx-auto">
+    <section className="relative">
+      <div className="dv-container py-16 lg:py-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 max-w-5xl mx-auto">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
               <div className="flex flex-col items-center text-center">
-                <div className="font-mono text-5xl lg:text-6xl font-semibold tracking-tight text-ink">
+                <div className="font-mono text-4xl lg:text-5xl font-semibold tracking-tight text-ink">
                   <CounterFormatted to={s.to} decimals={s.decimals ?? 0} prefix={s.prefix ?? ''} suffix={s.suffix ?? ''} />
                 </div>
                 <div className="mt-2 text-xs text-ink-muted">{s.label}</div>
