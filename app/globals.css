@@ -4,26 +4,25 @@
 
 :root {
   color-scheme: light;
-  /* pointer position for reactive background, set by ReactiveBackground */
   --px: 50%;
   --py: 30%;
 }
 
 html, body {
-  background-color: #FAFBFF;
-  color: #0A0A0B;
+  background-color: #F8F4EC;
+  color: #101012;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection { background: rgba(79,124,255,0.25); color: #0A0A0B; }
+::selection { background: rgba(41,80,242,0.20); color: #101012; }
 
 @layer components {
   .dv-container { @apply mx-auto w-full max-w-7xl px-6 lg:px-8; }
 
   .dv-eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/70 px-3 py-1
-           text-xs font-medium uppercase tracking-[0.12em] text-ink-muted backdrop-blur;
+    @apply inline-flex items-center gap-2 rounded-full border border-hairline bg-surface/80 px-3 py-1
+           text-[11px] font-medium uppercase tracking-[0.14em] text-ink-muted backdrop-blur;
   }
 
   .dv-btn {
@@ -32,42 +31,41 @@ html, body {
            focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
   }
   .dv-btn-primary {
-    @apply dv-btn text-white;
-    background-image: linear-gradient(135deg, #4F7CFF 0%, #7C5CFF 60%, #A78BFA 100%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.4) inset,
-      0 8px 24px -8px rgba(79,124,255,0.45),
-      0 0 0 1px rgba(79,124,255,0.35);
+    @apply dv-btn bg-ink text-white shadow-btn-primary hover:-translate-y-px;
   }
-  .dv-btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
-
   .dv-btn-ghost {
-    @apply dv-btn border border-hairline bg-surface/80 text-ink backdrop-blur hover:bg-surface;
+    @apply dv-btn border border-hairline bg-surface/90 text-ink hover:bg-surface backdrop-blur;
   }
 
   .dv-card {
-    @apply rounded-2xl border border-hairline bg-surface/80 p-6 backdrop-blur shadow-card;
+    @apply rounded-2xl border border-hairline bg-surface p-6 shadow-card;
   }
   .dv-divider { @apply h-px w-full bg-gradient-to-r from-transparent via-hairline to-transparent; }
 
   .dv-pill {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface/80 px-2.5 py-1
-           text-[11px] font-mono uppercase tracking-[0.12em] text-ink-muted backdrop-blur;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-2.5 py-1
+           text-[11px] font-mono uppercase tracking-[0.12em] text-ink-muted;
   }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  .text-grad-cool {
-    background-image: linear-gradient(135deg, #4F7CFF 0%, #22D3EE 50%, #A78BFA 100%);
+  /* the headline gradient — coral → royal → violet, the brand's signature */
+  .text-grad-accent {
+    background-image: linear-gradient(95deg, #FF7A59 0%, #2950F2 45%, #7C5CFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-
+  .text-grad-cool {
+    background-image: linear-gradient(95deg, #2950F2 0%, #22D3EE 60%, #34D399 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
   .text-grad-ink {
-    background-image: linear-gradient(180deg, #0A0A0B 0%, #52525B 100%);
+    background-image: linear-gradient(180deg, #101012 0%, #3F3F46 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -80,19 +78,18 @@ html, body {
 
   .grid-bg {
     background-image:
-      linear-gradient(to right, rgba(10,10,11,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(10,10,11,0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgba(16,16,18,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(16,16,18,0.05) 1px, transparent 1px);
     background-size: 56px 56px;
   }
 
-  /* cursor-reactive spotlight — uses --px/--py CSS variables */
   .spotlight {
     background:
       radial-gradient(
-        420px circle at var(--px) var(--py),
-        rgba(79, 124, 255, 0.18),
-        rgba(167, 139, 250, 0.12) 30%,
-        rgba(34, 211, 238, 0.08) 55%,
+        520px circle at var(--px) var(--py),
+        rgba(41, 80, 242, 0.14),
+        rgba(124, 92, 255, 0.10) 30%,
+        rgba(34, 211, 238, 0.06) 55%,
         transparent 75%
       );
   }
@@ -106,7 +103,7 @@ html, body {
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(110deg, transparent 35%, rgba(79,124,255,0.55), rgba(167,139,250,0.55), transparent 65%);
+    background: linear-gradient(110deg, transparent 35%, rgba(41,80,242,0.45), rgba(124,92,255,0.45), transparent 65%);
     background-size: 200% 100%;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,

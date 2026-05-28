@@ -34,8 +34,8 @@ const items = [
     a: "There's a guided demo on a live shared workspace. Real trial environments are provisioned for design partners after a walkthrough.",
   },
   {
-    q: 'Who built this?',
-    a: 'Valence Growth Partners — a cross-border M&A and capital raise advisory based in Mumbai and London. DealVisor ran inside the firm for 40+ live mandates before going external.',
+    q: 'Where does the team sit?',
+    a: 'Mumbai. Async-friendly, but we run on Indian Standard Time. Demos are typically scheduled in your timezone.',
   },
 ];
 
@@ -48,8 +48,8 @@ export function FAQ() {
           <Reveal>
             <span className="dv-eyebrow">FAQ</span>
             <h2 className="mt-5 text-display-2 text-balance">
-              <span className="text-grad-ink">The questions</span><br />
-              <span className="text-grad-cool">every MD asks.</span>
+              The questions <br />
+              <span className="text-grad-accent">every MD asks.</span>
             </h2>
             <p className="mt-5 text-sm text-ink-muted">
               Don&apos;t see yours? <a href="#pricing" className="underline underline-offset-4 hover:text-ink">Ask in the demo form</a>.

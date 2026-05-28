@@ -8,7 +8,7 @@ const stats: Array<{ to: number; prefix?: string; suffix?: string; decimals?: nu
   { to: 47, label: 'Active mandates run' },
   { to: 2.4, prefix: '$', suffix: 'B', decimals: 1, label: 'Counterparty conversations' },
   { to: 18000, suffix: '+', label: 'Documents indexed' },
-  { to: 40, suffix: '+', label: 'Live mandates inside Valence' },
+  { to: 40, suffix: '+', label: 'Mandates run before launch' },
 ];
 
 export function StatStrip() {
@@ -17,7 +17,7 @@ export function StatStrip() {
       <div className="dv-container py-12 lg:py-14">
         <Reveal>
           <div className="text-center text-[11px] font-mono uppercase tracking-[0.18em] text-ink-subtle">
-            Built and battle-tested on real cross-border M&amp;A
+            Battle-tested on real cross-border M&amp;A
           </div>
         </Reveal>
         <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">

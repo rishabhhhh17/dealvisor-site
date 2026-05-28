@@ -38,11 +38,11 @@ export function CTA() {
           <div className="mx-auto max-w-3xl text-center">
             <span className="dv-eyebrow">Book a walkthrough</span>
             <h2 className="mt-5 text-display-2 text-balance">
-              <span className="text-grad-ink">Book a</span>{' '}
-              <span className="text-grad-cool">30-minute walkthrough.</span>
+              Book a{' '}
+              <span className="text-grad-accent">30-minute walkthrough.</span>
             </h2>
             <p className="mt-5 text-lead text-ink-muted">
-              We&apos;ll show you DealVisor inside Valence&apos;s live workspace. No pitch deck.
+              We&apos;ll open DealVisor on a live workspace and show you how a real mandate moves through it. No pitch deck.
             </p>
           </div>
         </Reveal>

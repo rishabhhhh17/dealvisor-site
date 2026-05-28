@@ -13,9 +13,9 @@ const cols = [
   {
     title: 'Company',
     links: [
-      { label: 'Valence Growth Partners', href: 'https://valencegrowth.com' },
       { label: 'Book a demo', href: '#pricing' },
       { label: 'FAQ', href: '#faq' },
+      { label: 'Contact', href: 'mailto:hello@dealvisor.com' },
     ],
   },
   {
@@ -37,7 +37,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Wordmark />
             <p className="mt-5 max-w-sm text-sm text-ink-muted">
-              The operating system for investment banking. Run every mandate &mdash; from teaser to SPA &mdash; in one workspace.
+              The only visor you need for your deals. One workspace for every mandate &mdash; teaser to SPA.
             </p>
           </div>
           <div className="lg:col-span-7 grid grid-cols-3 gap-8">
@@ -59,8 +59,8 @@ export function Footer() {
         </div>
         <div className="mt-14 dv-divider" />
         <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] font-mono uppercase tracking-[0.14em] text-ink-subtle">
-          <span>© 2026 Valence Growth Partners</span>
-          <span className="text-grad-cool">Made in Mumbai · London</span>
+          <span>© 2026 DealVisor</span>
+          <span className="text-grad-accent">Made in Mumbai</span>
         </div>
       </div>
     </footer>

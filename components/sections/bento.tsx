@@ -21,8 +21,8 @@ export function Bento() {
         <Reveal>
           <span className="dv-eyebrow">The product</span>
           <h2 className="mt-5 max-w-3xl text-display-2 text-balance">
-            <span className="text-grad-ink">Everything an IB firm needs.</span><br />
-            <span className="text-grad-cool">Nothing it doesn&apos;t.</span>
+            Everything an IB firm needs.<br />
+            <span className="text-grad-accent">Nothing it doesn&apos;t.</span>
           </h2>
         </Reveal>
 

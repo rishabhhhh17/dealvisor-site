@@ -21,7 +21,7 @@ export function MarqueeBar() {
     <section className="relative py-10 lg:py-12">
       <div className="dv-container">
         <div className="text-center text-[11px] font-mono uppercase tracking-[0.18em] text-ink-subtle">
-          Sectors run on DealVisor
+          One workspace · every sector
         </div>
         <div className="mt-6">
           <Marquee

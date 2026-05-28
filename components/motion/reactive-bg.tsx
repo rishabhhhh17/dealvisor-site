@@ -2,9 +2,8 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Full-page reactive background. Sets --px/--py CSS vars on <html> so any
- * .spotlight utility tracks the cursor. Renders four animated mesh blobs
- * that drift on their own (CSS-keyframed) and breathe based on pointer.
+ * Full-page reactive background. Cool mesh blobs over warm cream canvas.
+ * Tracks pointer via --px / --py for the .spotlight utility.
  */
 export function ReactiveBackground() {
   const root = useRef<HTMLDivElement>(null);
@@ -40,20 +39,16 @@ export function ReactiveBackground() {
   }, []);
 
   return (
-    <div
-      ref={root}
-      aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-canvas"
-    >
-      {/* drifting mesh blobs */}
-      <div className="absolute -inset-[20%] bg-mesh-cool opacity-70 blur-3xl animate-mesh-drift" />
-      {/* subtle grid */}
-      <div className="absolute inset-0 grid-bg mask-radial opacity-60" />
+    <div ref={root} aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-canvas">
+      {/* drifting cool mesh blobs over warm cream */}
+      <div className="absolute -inset-[15%] bg-mesh-brand opacity-90 blur-3xl animate-mesh-drift" />
+      {/* very subtle grid */}
+      <div className="absolute inset-0 grid-bg mask-radial opacity-40" />
       {/* cursor-following spotlight */}
       <div className="absolute inset-0 spotlight" />
-      {/* film grain */}
-      <div className="absolute inset-0 mix-blend-overlay opacity-[0.06] bg-noise" />
-      {/* fade bottom of viewport so footer feels grounded */}
+      {/* film grain for tactility */}
+      <div className="absolute inset-0 mix-blend-multiply opacity-[0.05] bg-noise" />
+      {/* fade bottom so footer feels grounded */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-canvas" />
     </div>
   );

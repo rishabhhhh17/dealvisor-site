@@ -31,8 +31,8 @@ export function HowItWorks() {
         <Reveal>
           <span className="dv-eyebrow">How it works</span>
           <h2 className="mt-5 max-w-3xl text-display-2 text-balance">
-            <span className="text-grad-ink">From scattered to running,</span>{' '}
-            <span className="text-grad-cool">in a week.</span>
+            From scattered to running, {' '}
+            <span className="text-grad-accent">in a week.</span>
           </h2>
         </Reveal>
 
@@ -90,7 +90,7 @@ export function HowItWorks() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.2 + i * 0.15 }}
               >
-                <div className="font-mono text-7xl lg:text-8xl font-semibold tracking-tight text-grad-cool">
+                <div className="font-mono text-7xl lg:text-8xl font-semibold tracking-tight text-grad-accent">
                   {s.n}
                 </div>
                 <h3 className="mt-4 text-h3">{s.title}</h3>
