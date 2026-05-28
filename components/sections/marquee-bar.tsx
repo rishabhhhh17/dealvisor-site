@@ -18,7 +18,7 @@ const sectors = [
 
 export function MarqueeBar() {
   return (
-    <section className="relative py-10 lg:py-12">
+    <section className="relative py-10 lg:py-12 border-y border-hairline bg-surface/60 backdrop-blur">
       <div className="dv-container">
         <div className="text-center text-[11px] font-mono uppercase tracking-[0.18em] text-ink-subtle">
           One workspace · every sector
@@ -31,7 +31,7 @@ export function MarqueeBar() {
                 key={i}
                 className="inline-flex items-center gap-2 text-2xl lg:text-3xl font-semibold tracking-tight text-ink-subtle hover:text-ink transition-colors"
               >
-                <span className="size-1.5 rounded-full bg-gradient-to-br from-dv-blue to-dv-violet" />
+                <span className="size-1.5 rounded-full bg-dv-blue" />
                 {s}
               </span>
             )}

@@ -30,8 +30,7 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-hairline/70">
-      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-dv-blue/50 to-transparent" />
+    <footer className="relative border-t border-hairline">
       <div className="dv-container py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-5">
@@ -60,7 +59,10 @@ export function Footer() {
         <div className="mt-14 dv-divider" />
         <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] font-mono uppercase tracking-[0.14em] text-ink-subtle">
           <span>© 2026 DealVisor</span>
-          <span className="text-grad-accent">Made in Mumbai</span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="size-1.5 rounded-full bg-dv-blue" />
+            Made in Mumbai
+          </span>
         </div>
       </div>
     </footer>

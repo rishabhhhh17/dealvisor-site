@@ -3,275 +3,89 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  --px: 50%;
-  --py: 30%;
+  color-scheme: light;
 }
 
 html, body {
-  background-color: #08080F;
-  color: #F5F5F8;
+  background-color: #F6F3EB;
+  color: #0F172A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection { background: rgba(79,124,255,0.40); color: #F5F5F8; }
+::selection { background: rgba(37,99,235,0.18); color: #0F172A; }
 
 @layer components {
   .dv-container { @apply mx-auto w-full max-w-7xl px-6 lg:px-8; }
 
   .dv-eyebrow {
-    @apply relative inline-flex items-center gap-2 rounded-full px-3 py-1
-           text-[11px] font-medium uppercase tracking-[0.14em] text-ink-muted backdrop-blur;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.10);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.10) inset,
-      0 0 0 1px rgba(0,0,0,0.4);
+    @apply inline-flex items-center gap-2 rounded-full border border-hairline bg-surface px-3 py-1
+           text-[11px] font-medium uppercase tracking-[0.14em] text-ink-muted;
+    box-shadow: 0 1px 2px 0 rgba(15,23,42,0.03);
   }
 
-  /* base button */
   .dv-btn {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium
-           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dv-blue/60
-           focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
-    isolation: isolate;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium
+           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dv-blue/40
+           focus-visible:ring-offset-2 focus-visible:ring-offset-canvas press;
   }
-  .dv-btn:active { transform: translateY(1px) scale(0.985); }
-  .dv-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
-    background-size: 250% 100%;
-    background-position: -150% 0;
-    transition: background-position 0.7s ease;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    opacity: 0;
-  }
-  .dv-btn:hover::after { background-position: 150% 0; opacity: 1; }
-
-  /* primary — polished white-on-dark chrome with visible curve highlight */
   .dv-btn-primary {
-    @apply dv-btn text-canvas;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.78) 48%, rgba(220,220,232,0.92) 52%, rgba(200,200,215,1) 100%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 -1px 0 0 rgba(0,0,0,0.10) inset,
-      0 0 0 1px rgba(0,0,0,0.4),
-      0 14px 32px -10px rgba(0,0,0,0.70),
-      0 22px 44px -20px rgba(79,124,255,0.35);
+    @apply dv-btn bg-ink text-white shadow-btn-primary hover:-translate-y-px hover:bg-[#1a2541];
   }
-  .dv-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.04); }
-
-  /* ghost — frosted dark glass */
   .dv-btn-ghost {
-    @apply dv-btn text-ink;
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 48%, rgba(255,255,255,0.06) 52%, rgba(255,255,255,0.02) 100%);
-    border: 1px solid rgba(255,255,255,0.10);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.12) inset,
-      0 0 0 1px rgba(0,0,0,0.4),
-      0 14px 28px -16px rgba(0,0,0,0.6);
+    @apply dv-btn border border-hairline bg-surface text-ink hover:bg-elevated;
+    box-shadow: 0 1px 2px 0 rgba(15,23,42,0.04);
   }
-  .dv-btn-ghost:hover { transform: translateY(-1px); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)); }
 
-  /* card — dark glass with top-edge highlight */
   .dv-card {
-    @apply relative rounded-2xl p-6;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.10) inset,
-      0 0 0 1px rgba(0,0,0,0.5),
-      0 24px 48px -24px rgba(0,0,0,0.65),
-      0 8px 24px -12px rgba(79,124,255,0.18);
+    @apply rounded-2xl border border-hairline bg-surface p-6 shadow-card transition-shadow duration-200 hover:shadow-card-hover;
   }
-
-  .dv-divider { @apply h-px w-full bg-gradient-to-r from-transparent via-hairline to-transparent; }
+  .dv-divider { @apply h-px w-full bg-hairline; }
 
   .dv-pill {
-    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
+    @apply inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-2.5 py-1
            text-[11px] font-mono uppercase tracking-[0.12em] text-ink-muted;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.10);
-    backdrop-filter: blur(6px) saturate(140%);
   }
 
   .dv-chip {
-    @apply relative inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium text-ink transition-all;
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-    border: 1px solid rgba(255,255,255,0.10);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.10) inset,
-      0 4px 12px -6px rgba(0,0,0,0.4);
-    cursor: pointer;
+    @apply inline-flex items-center gap-1.5 rounded-full border border-hairline bg-surface px-3 py-1 text-[11px] font-medium text-ink-muted transition-all press;
+    box-shadow: 0 1px 2px 0 rgba(15,23,42,0.03);
   }
-  .dv-chip:hover { transform: translateY(-1px); border-color: rgba(79,124,255,0.40); box-shadow:
-    0 1px 0 0 rgba(255,255,255,0.14) inset,
-    0 0 0 1px rgba(79,124,255,0.20),
-    0 8px 18px -8px rgba(79,124,255,0.30); }
-  .dv-chip:active { transform: translateY(0) scale(0.98); }
-
+  .dv-chip:hover { color: #0F172A; border-color: #2563EB30; }
   .dv-chip-active {
-    color: #FFFFFF;
-    background: linear-gradient(180deg, rgba(79,124,255,0.30), rgba(79,124,255,0.12));
-    border-color: rgba(79,124,255,0.50);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.15) inset,
-      0 0 0 1px rgba(79,124,255,0.40),
-      0 6px 14px -8px rgba(79,124,255,0.40);
+    @apply text-white bg-ink border-ink;
   }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  .text-grad-accent {
-    background-image: linear-gradient(95deg, #FF7A59 0%, #4F7CFF 45%, #7C5CFF 100%);
+  /* a single sophisticated accent — used sparingly */
+  .text-accent {
+    background-image: linear-gradient(95deg, #2563EB 0%, #4F46E5 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-  }
-  .text-grad-cool {
-    background-image: linear-gradient(95deg, #4F7CFF 0%, #22D3EE 60%, #34D399 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* chrome silver — for the visor word on dark canvas */
-  .text-chrome {
-    background-image:
-      linear-gradient(180deg, #FFFFFF 0%, #D9D9E2 40%, #8A8A98 56%, #C0C0CC 80%, #F0F0F4 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.10)) drop-shadow(0 2px 16px rgba(255,255,255,0.10));
-  }
-  .text-chrome-shine {
-    position: relative;
-    display: inline-block;
-  }
-  .text-chrome-shine::after {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(105deg, transparent 35%, rgba(255,255,255,1) 50%, transparent 65%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-size: 250% 100%;
-    animation: shimmer 3.2s ease-in-out infinite;
-    pointer-events: none;
-  }
-
-  /* visible chrome bezel for product mockups */
-  .chrome-frame {
-    position: relative;
-    padding: 6px;
-    border-radius: 28px;
-    background:
-      linear-gradient(180deg, #2A2A38 0%, #3F3F52 18%, #6F6F84 28%, #14141E 48%, #6F6F84 72%, #3F3F52 82%, #1C1C28 100%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.18) inset,
-      0 -1px 0 0 rgba(0,0,0,0.6) inset,
-      0 0 0 1px rgba(0,0,0,0.7),
-      0 40px 80px -30px rgba(0,0,0,0.85),
-      0 16px 36px -16px rgba(79,124,255,0.32);
-  }
-  .chrome-frame::before {
-    content: '';
-    position: absolute;
-    left: 14%;
-    right: 14%;
-    top: 1px;
-    height: 14px;
-    border-radius: 22px 22px 0 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%);
-    pointer-events: none;
-  }
-  .chrome-frame::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 28px;
-    box-shadow: 0 -10px 24px -20px rgba(255,255,255,0.10) inset;
-    pointer-events: none;
-  }
-
-  .surface-glass {
-    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-  }
-  .surface-chrome {
-    background:
-      linear-gradient(180deg, #1C1C28 0%, #12121A 100%);
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.08) inset,
-      0 -1px 0 0 rgba(0,0,0,0.5) inset;
   }
 
   .mask-radial {
     mask-image: radial-gradient(70% 70% at 50% 50%, black 30%, transparent 90%);
     -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, black 30%, transparent 90%);
   }
+
   .grid-bg {
     background-image:
-      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgba(15,23,42,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15,23,42,0.04) 1px, transparent 1px);
     background-size: 56px 56px;
   }
 
-  .spotlight {
-    background:
-      radial-gradient(
-        560px circle at var(--px) var(--py),
-        rgba(79, 124, 255, 0.18),
-        rgba(124, 92, 255, 0.12) 30%,
-        rgba(34, 211, 238, 0.08) 55%,
-        transparent 75%
-      );
-  }
-
-  .shimmer-border {
-    position: relative;
-  }
-  .shimmer-border::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(110deg, transparent 35%, rgba(79,124,255,0.65), rgba(124,92,255,0.65), transparent 65%);
-    background-size: 200% 100%;
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 200ms ease;
-    animation: shimmer 2.4s linear infinite;
-    animation-play-state: paused;
-    pointer-events: none;
-  }
-  .group:hover > .shimmer-border::before,
-  .shimmer-border:hover::before { opacity: 1; animation-play-state: running; }
-
+  /* press feedback for any clickable */
   .press { transition: transform 120ms ease; }
   .press:active { transform: scale(0.97); }
+
+  /* shimmer border for cards — single tasteful accent on hover */
+  .ring-accent { box-shadow: 0 0 0 1px rgba(37,99,235,0.18); }
 }
 
 @media (prefers-reduced-motion: reduce) {

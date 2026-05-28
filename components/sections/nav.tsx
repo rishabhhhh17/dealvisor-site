@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Wordmark } from '@/components/ui/wordmark';
-import { Magnetic } from '@/components/motion/magnetic';
 import { cn } from '@/lib/utils';
 
 const links = [
@@ -25,7 +24,7 @@ export function Nav() {
     <header
       className={cn(
         'sticky top-0 z-50 transition-all duration-300',
-        scrolled ? 'border-b border-hairline/80 bg-canvas/70 backdrop-blur-xl' : 'border-b border-transparent',
+        scrolled ? 'border-b border-hairline bg-canvas/80 backdrop-blur-xl' : 'border-b border-transparent',
       )}
     >
       <div className="dv-container flex h-16 items-center justify-between">
@@ -41,9 +40,7 @@ export function Nav() {
         </nav>
         <div className="flex items-center gap-2">
           <a href="#pricing" className="hidden sm:inline-flex dv-btn-ghost text-xs">Sign in</a>
-          <Magnetic strength={0.25}>
-            <a href="#pricing" className="dv-btn-primary text-xs">Book demo</a>
-          </Magnetic>
+          <a href="#pricing" className="dv-btn-primary text-xs">Book demo</a>
         </div>
       </div>
     </header>
