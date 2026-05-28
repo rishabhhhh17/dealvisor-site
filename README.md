@@ -21,17 +21,17 @@ npm run dev                  # http://localhost:3000
 
 ## Lead capture
 
-Run `supabase/leads.sql` once in the Supabase SQL editor for project `ndsvjdlagetyrihkbeul` to create the `leads` table with service-role-only RLS.
+The `leads` table lives in Supabase project `xwbownhncfthjmxceqrt`. RLS policy `anon_insert` allows insert-only from the anon role with bounded field lengths. No select / update / delete from anon. See `supabase/leads.sql`.
 
-The CTA form posts JSON to `/api/lead` → server inserts using `SUPABASE_SERVICE_ROLE_KEY`. No anon writes.
+The CTA form posts JSON to `/api/lead` → server-side insert using `NEXT_PUBLIC_SUPABASE_ANON_KEY`. RLS does the enforcement.
 
 ## Deploy
 
 Linked to Vercel project `dealvisor-site`. Env vars required in Vercel:
 
 - `NEXT_PUBLIC_SITE_URL`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
 ## Brand
 
