@@ -11,6 +11,7 @@ export function FeatureRow({
   visual,
   reverse = false,
   cta,
+  tone = 'cream',
 }: {
   eyebrow: string;
   title: ReactNode;
@@ -19,11 +20,12 @@ export function FeatureRow({
   visual: ReactNode;
   reverse?: boolean;
   cta?: { label: string; href: string };
+  tone?: 'cream' | 'white';
 }) {
   return (
-    <section className="relative py-20 lg:py-28">
+    <section className={cn('relative py-24 lg:py-36', tone === 'white' && 'bg-surface border-y border-hairline')}>
       <div className="dv-container">
-        <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center', reverse && 'lg:[&>div:first-child]:order-2')}>
+        <div className={cn('grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center', reverse && 'lg:[&>div:first-child]:order-2')}>
           <Reveal>
             <span className="dv-eyebrow">{eyebrow}</span>
             <h2 className="mt-5 text-display-2 text-balance">{title}</h2>

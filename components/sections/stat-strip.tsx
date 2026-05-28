@@ -6,25 +6,28 @@ import { Counter } from '@/components/motion/counter';
 
 const stats: Array<{ to: number; prefix?: string; suffix?: string; decimals?: number; label: string }> = [
   { to: 47, label: 'Active mandates run' },
-  { to: 2.4, prefix: '$', suffix: 'B', decimals: 1, label: 'Counterparty conversations' },
+  { to: 2.4, prefix: '$', suffix: 'B', decimals: 1, label: 'In counterparty conversations' },
   { to: 18000, suffix: '+', label: 'Documents indexed' },
-  { to: 40, suffix: '+', label: 'Mandates run before launch' },
+  { to: 40, suffix: '+', label: 'Mandates before launch' },
 ];
 
 export function StatStrip() {
   return (
-    <section className="relative">
-      <div className="dv-container py-16 lg:py-20">
+    <section className="relative bg-surface border-y border-hairline">
+      <div className="dv-container py-20 lg:py-28">
         <Reveal>
-          <div className="text-center text-[11px] font-mono uppercase tracking-[0.18em] text-ink-subtle">
-            Battle-tested on real cross-border M&amp;A
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="dv-eyebrow">By the numbers</span>
+            <h2 className="mt-5 text-display-2 text-balance">
+              Battle-tested on <span className="text-accent">real mandates.</span>
+            </h2>
           </div>
         </Reveal>
-        <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+        <div className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6 max-w-5xl mx-auto">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08}>
               <div className="flex flex-col items-center text-center">
-                <div className="font-mono text-4xl lg:text-5xl font-semibold tracking-tight text-ink">
+                <div className="font-mono text-5xl lg:text-6xl font-semibold tracking-tight text-ink">
                   <CounterFormatted to={s.to} decimals={s.decimals ?? 0} prefix={s.prefix ?? ''} suffix={s.suffix ?? ''} />
                 </div>
                 <div className="mt-2 text-xs text-ink-muted">{s.label}</div>
