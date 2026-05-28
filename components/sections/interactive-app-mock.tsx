@@ -40,24 +40,8 @@ export function InteractiveAppMock() {
           <span className="size-2.5 rounded-full bg-dv-mint/90 shadow-[0_1px_0_0_rgba(255,255,255,0.6)_inset]" />
         </div>
         <div className="ml-3 text-[11px] font-mono text-ink-subtle">app.dealvisor.com / {tab}</div>
-        <div className="ml-auto flex items-center gap-1.5">
-          <button
-            type="button"
-            onClick={() => {
-              const ev = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
-              window.dispatchEvent(ev);
-            }}
-            className="dv-chip hidden sm:inline-flex"
-            title="Open command palette"
-          >
-            <Search className="size-3" /> Search
-            <kbd className="ml-2 rounded border border-hairline bg-elevated/80 px-1 py-px font-mono text-[9px] text-ink-subtle">⌘K</kbd>
-          </button>
-          <button type="button" className="dv-chip" title="Notifications">
-            <Bell className="size-3" />
-            <span className="size-1.5 rounded-full bg-dv-coral" />
-          </button>
-        </div>
+        <div className="ml-auto" />
+
       </div>
 
       <div className="grid grid-cols-12 min-h-[460px]">

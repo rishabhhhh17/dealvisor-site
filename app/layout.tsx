@@ -4,8 +4,6 @@ import { GeistMono } from 'geist/font/mono';
 import './globals.css';
 import { ReactiveBackground } from '@/components/motion/reactive-bg';
 import { ScrollProgress } from '@/components/motion/scroll-progress';
-import { ClickSpark } from '@/components/motion/click-spark';
-import { CommandPalette } from '@/components/motion/command-palette';
 
 export const metadata: Metadata = {
   title: 'DealVisor — The operating system for investment banking',
@@ -28,8 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="relative bg-canvas text-ink font-sans antialiased">
         <ReactiveBackground />
         <ScrollProgress />
-        <ClickSpark />
-        <CommandPalette />
         {children}
       </body>
     </html>

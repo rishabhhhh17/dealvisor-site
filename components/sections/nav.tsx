@@ -40,18 +40,6 @@ export function Nav() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              const ev = new KeyboardEvent('keydown', { key: 'k', metaKey: true });
-              window.dispatchEvent(ev);
-            }}
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] text-ink-muted hover:text-ink press"
-            title="Open command palette"
-          >
-            <span>Quick jump</span>
-            <kbd className="rounded border border-hairline bg-elevated/80 px-1.5 py-0.5 font-mono text-[10px]">⌘K</kbd>
-          </button>
           <a href="#pricing" className="hidden sm:inline-flex dv-btn-ghost text-xs">Sign in</a>
           <Magnetic strength={0.25}>
             <a href="#pricing" className="dv-btn-primary text-xs">Book demo</a>

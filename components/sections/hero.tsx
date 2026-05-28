@@ -5,7 +5,17 @@ import { ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
 import { Magnetic } from '@/components/motion/magnetic';
 import { InteractiveAppMock } from '@/components/sections/interactive-app-mock';
 
-const headline = ['The', 'only', 'visor', 'you', 'need', 'for', 'your', 'deals.'];
+type Word = { text: string; kind: 'plain' | 'chrome' | 'accent' };
+const headline: Word[] = [
+  { text: 'The', kind: 'plain' },
+  { text: 'only', kind: 'plain' },
+  { text: 'visor', kind: 'chrome' },
+  { text: 'you', kind: 'plain' },
+  { text: 'need', kind: 'plain' },
+  { text: 'for', kind: 'plain' },
+  { text: 'your', kind: 'plain' },
+  { text: 'deals.', kind: 'accent' },
+];
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -36,7 +46,7 @@ export function Hero() {
 
         {/* headline — the visor tagline */}
         <h1 className="mx-auto mt-8 max-w-5xl text-center text-display-1 text-balance">
-          {headline.map((word, i) => (
+          {headline.map((w, i) => (
             <motion.span
               key={i}
               initial={{ opacity: 0, y: 32, filter: 'blur(10px)' }}
@@ -44,12 +54,14 @@ export function Hero() {
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.15 + i * 0.06 }}
               className="inline-block mr-[0.22em] last:mr-0"
             >
-              {word === 'visor' ? (
-                <span className="text-grad-accent">{word}</span>
-              ) : word === 'deals.' ? (
-                <span className="text-grad-accent">{word}</span>
+              {w.kind === 'chrome' ? (
+                <span className="text-chrome-shine" data-text={w.text}>
+                  <span className="text-chrome">{w.text}</span>
+                </span>
+              ) : w.kind === 'accent' ? (
+                <span className="text-grad-accent">{w.text}</span>
               ) : (
-                <span className="text-ink">{word}</span>
+                <span className="text-ink">{w.text}</span>
               )}
             </motion.span>
           ))}
@@ -83,7 +95,7 @@ export function Hero() {
           </Magnetic>
         </motion.div>
 
-        {/* the playable mockup */}
+        {/* the playable mockup, wrapped in a brushed-chrome bezel */}
         <motion.div
           style={{ y: mockY, rotateX: mockRotate, scale: mockScale, opacity: mockOpacity, perspective: 1600 }}
           initial={{ opacity: 0, y: 80 }}
@@ -91,8 +103,17 @@ export function Hero() {
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
           className="relative mx-auto mt-20 max-w-6xl"
         >
-          <div aria-hidden className="pointer-events-none absolute -inset-x-20 -bottom-24 h-72 bg-mesh-brand opacity-70 blur-3xl" />
-          <InteractiveAppMock />
+          {/* reactive color wash beneath the mockup — gets caught by the chrome rim */}
+          <div aria-hidden className="pointer-events-none absolute -inset-x-24 -bottom-28 h-80 bg-mesh-brand opacity-80 blur-3xl" />
+          <div className="chrome-frame">
+            <InteractiveAppMock />
+          </div>
+          {/* reflective shadow on the floor below the chrome frame */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-10 -bottom-6 h-10 rounded-full blur-2xl"
+            style={{ background: 'radial-gradient(50% 60% at 50% 50%, rgba(16,16,18,0.30) 0%, rgba(16,16,18,0) 80%)' }}
+          />
         </motion.div>
 
         <a href="#problem" className="mx-auto mt-12 flex w-fit items-center gap-2 text-xs text-ink-subtle hover:text-ink transition-colors">
