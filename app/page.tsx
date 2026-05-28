@@ -2,7 +2,7 @@ import { Nav } from '@/components/sections/nav';
 import { Hero } from '@/components/sections/hero';
 import { LogoStrip } from '@/components/sections/logo-strip';
 import { StatStrip } from '@/components/sections/stat-strip';
-import { FeatureRow } from '@/components/sections/feature-row';
+import { FeatureSpotlight } from '@/components/sections/feature-spotlight';
 import { PipelineMock, MandateMock, KnowledgeMock, AskMock } from '@/components/sections/feature-mocks';
 import { PullQuote } from '@/components/sections/pull-quote';
 import { Problem } from '@/components/sections/problem';
@@ -24,30 +24,27 @@ export default function Page() {
       <StatStrip />
 
       <div id="product">
-        <FeatureRow
+        <FeatureSpotlight
           eyebrow="Pipeline"
-          title={<>A pipeline that <span className="text-accent">speaks IB.</span></>}
+          title={
+            <>
+              A pipeline that <span className="text-accent">speaks IB.</span>
+            </>
+          }
           body="Seven stages from Origination to Closed. Drag to advance. Velocity benchmarks flag stale mandates before they go cold."
-          bullets={[
-            'IB-native stages, not SaaS stages',
-            'Drag-to-advance with audit trail',
-            'Velocity alerts on stale mandates',
-          ]}
           visual={<PipelineMock />}
-          cta={{ label: 'Book a demo', href: '#pricing' }}
           tone="cream"
         />
 
-        <FeatureRow
-          reverse
+        <FeatureSpotlight
           eyebrow="Mandates"
-          title={<>One page <span className="text-accent">per mandate.</span> Everything on it.</>}
-          body="Counterparties, NDAs, IMs, LOIs, retainers, success fees, recorded calls. The full life of a mandate, in one place."
-          bullets={[
-            'Counterparty-by-counterparty NDA + LOI status',
-            'Retainer + success-fee economics inline',
-            'Meeting transcripts auto-attached',
-          ]}
+          title={
+            <>
+              One page per mandate.<br />
+              <span className="text-accent">Everything on it.</span>
+            </>
+          }
+          body="Counterparties, NDAs, IMs, LOIs, retainers, success fees, recorded calls — the full life of a mandate, in one place."
           visual={<MandateMock />}
           tone="white"
         />
@@ -55,29 +52,27 @@ export default function Page() {
 
       <PullQuote />
 
-      <FeatureRow
+      <FeatureSpotlight
         eyebrow="Knowledge"
-        title={<>A wiki <span className="text-accent">your firm uses.</span></>}
+        title={
+          <>
+            A wiki <span className="text-accent">your firm uses.</span>
+          </>
+        }
         body="Wikilinks between people, firms, and mandates. Hybrid lexical and vector search across every IM, teaser, and memo your firm has produced."
-        bullets={[
-          'Hybrid lexical + pgvector search',
-          'Templates for sector and target profiles',
-          'Memos linked back to the mandate they came from',
-        ]}
         visual={<KnowledgeMock />}
         tone="cream"
       />
 
-      <FeatureRow
-        reverse
+      <FeatureSpotlight
         eyebrow="Ask"
-        title={<>Ask in plain English. <span className="text-accent">Get cited answers.</span></>}
-        body={<>&ldquo;Which counterparties signed an NDA in Q1?&rdquo; &mdash; grounded in your firm&apos;s data, never the open web.</>}
-        bullets={[
-          'Inline citations to documents and transcripts',
-          "Grounded in your firm's data, never the open web",
-          'Read-only — no autonomous actions',
-        ]}
+        title={
+          <>
+            Ask in plain English.<br />
+            <span className="text-accent">Get cited answers.</span>
+          </>
+        }
+        body="Grounded in your firm's data, never the open web. Every claim has a source you can click."
         visual={<AskMock />}
         tone="white"
       />
