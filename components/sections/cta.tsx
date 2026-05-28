@@ -50,8 +50,8 @@ export function CTA() {
         <Reveal delay={0.1}>
           <div className="mx-auto mt-12 max-w-xl">
             {status === 'success' ? (
-              <div className="dv-card flex items-center gap-3 border-emerald-300/50 bg-emerald-50/60">
-                <Check className="size-5 text-emerald-600" />
+              <div className="dv-card flex items-center gap-3 border-emerald-400/30 bg-emerald-500/10">
+                <Check className="size-5 text-emerald-300" />
                 <div>
                   <div className="text-sm font-medium">Got it. We&apos;ll be in touch within a working day.</div>
                   <div className="text-xs text-ink-muted mt-0.5">A real banker will reply &mdash; not a sequence.</div>
@@ -85,7 +85,7 @@ export function CTA() {
                     </button>
                   </Magnetic>
                 </div>
-                {status === 'error' && <p className="text-xs text-rose-500">{error}</p>}
+                {status === 'error' && <p className="text-xs text-rose-300">{error}</p>}
               </form>
             )}
           </div>
@@ -107,7 +107,7 @@ function Field(props: {
   const { label, name, as = 'input', ...rest } = props;
   const id = `f-${name}`;
   const base =
-    'w-full rounded-lg border border-hairline bg-surface px-3 py-2.5 text-sm placeholder:text-ink-subtle focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15 transition-colors';
+    'w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-sm placeholder:text-ink-subtle focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15 transition-colors';
   return (
     <label htmlFor={id} className="block">
       <span className="block text-[11px] font-mono uppercase tracking-[0.14em] text-ink-subtle mb-1.5">{label}</span>
@@ -129,7 +129,7 @@ function SelectField({ label, name, options }: { label: string; name: string; op
         id={id}
         name={name}
         defaultValue=""
-        className="w-full rounded-lg border border-hairline bg-surface px-3 py-2.5 text-sm focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15"
+        className="w-full rounded-lg border border-hairline bg-raised px-3 py-2.5 text-sm focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15"
       >
         <option value="" disabled>Select…</option>
         {options.map((o) => (

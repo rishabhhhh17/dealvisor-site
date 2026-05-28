@@ -77,7 +77,7 @@ export function Bento() {
                 <span className="rounded bg-dv-blue/10 px-1.5 py-0.5 font-mono text-dv-blue">[[Genoptix]]</span>,{' '}
                 <span className="rounded bg-dv-violet/10 px-1.5 py-0.5 font-mono text-dv-violet">[[Praxis]]</span>.
                 IM sent to{' '}
-                <span className="rounded bg-dv-cyan/10 px-1.5 py-0.5 font-mono text-cyan-700">[[Apollo Healthcare]]</span> on 12 Feb.
+                <span className="rounded bg-dv-cyan/10 px-1.5 py-0.5 font-mono text-cyan-300">[[Apollo Healthcare]]</span> on 12 Feb.
               </div>
             </SpotlightCard>
           </Reveal>
@@ -208,14 +208,14 @@ function InteractivePipeline() {
             className={`rounded-full border px-3 py-1 text-[11px] font-mono uppercase tracking-[0.1em] transition-all ${
               stage === s
                 ? 'border-dv-blue/40 bg-dv-blue/10 text-dv-blue'
-                : 'border-hairline bg-surface text-ink-muted hover:text-ink'
+                : 'border-hairline bg-raised text-ink-muted hover:text-ink'
             }`}
           >
             {s}
           </button>
         ))}
       </div>
-      <div className="mt-3 flex-1 overflow-hidden rounded-lg border border-hairline bg-surface">
+      <div className="mt-3 flex-1 overflow-hidden rounded-lg border border-hairline bg-raised">
         <div className="grid grid-cols-12 border-b border-hairline bg-elevated/50 px-3 py-1.5 text-[10px] font-mono uppercase tracking-[0.12em] text-ink-subtle">
           <span className="col-span-5">Counterparty</span>
           <span className="col-span-3">Stage</span>
@@ -325,7 +325,7 @@ function LiveAskDemo() {
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Ask anything about your mandates…"
-          className="w-full rounded-xl border border-hairline bg-surface px-4 py-3 pr-12 text-sm shadow-sm focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15"
+          className="w-full rounded-xl border border-hairline bg-raised px-4 py-3 pr-12 text-sm shadow-sm focus-visible:outline-none focus-visible:border-dv-blue/50 focus-visible:ring-2 focus-visible:ring-dv-blue/15"
         />
         <button
           type="submit"
@@ -346,7 +346,7 @@ function LiveAskDemo() {
               setQ(s);
               ask(s);
             }}
-            className="rounded-full border border-hairline bg-surface px-2.5 py-1 text-[11px] text-ink-muted hover:text-ink hover:border-dv-blue/30 hover:bg-dv-blue/5 transition-colors"
+            className="rounded-full border border-hairline bg-raised px-2.5 py-1 text-[11px] text-ink-muted hover:text-ink hover:border-dv-blue/30 hover:bg-dv-blue/5 transition-colors"
           >
             {s}
           </button>

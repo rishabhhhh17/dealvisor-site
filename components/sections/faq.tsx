@@ -75,7 +75,7 @@ export function FAQ() {
                       <motion.span
                         animate={{ rotate: isOpen ? 180 : 0 }}
                         transition={{ duration: 0.25 }}
-                        className="shrink-0 rounded-full border border-hairline bg-surface p-1.5 text-ink-muted group-hover:text-ink"
+                        className="shrink-0 rounded-full border border-hairline bg-raised p-1.5 text-ink-muted group-hover:text-ink"
                       >
                         {isOpen ? <Minus className="size-3.5" /> : <Plus className="size-3.5" />}
                       </motion.span>

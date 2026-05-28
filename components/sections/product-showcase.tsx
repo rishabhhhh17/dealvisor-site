@@ -100,7 +100,7 @@ function FeatureBlock({ feature, reverse }: { feature: (typeof features)[number]
 
         <motion.div style={{ y }} className="relative">
           <div aria-hidden className="pointer-events-none absolute -inset-12 bg-glow-ring opacity-60 blur-3xl" />
-          <div className="relative rounded-2xl border border-hairline bg-elevated shadow-card overflow-hidden">
+          <div className="relative rounded-2xl border border-hairline bg-panel shadow-card overflow-hidden">
             <div className="flex items-center gap-2 border-b border-hairline bg-panel/80 px-4 py-2.5">
               <div className="flex gap-1.5">
                 <span className="size-2 rounded-full bg-white/15" />
@@ -134,7 +134,7 @@ function FeatureMock({ tag }: { tag: string }) {
             <div className="font-mono text-[9px] uppercase tracking-[0.12em] text-fg-subtle">{c}</div>
             <div className="mt-2 space-y-1.5">
               {cards[c].map((card) => (
-                <div key={card} className="rounded-md border border-hairline bg-elevated px-2 py-1.5 text-[11px]">
+                <div key={card} className="rounded-md border border-hairline bg-panel px-2 py-1.5 text-[11px]">
                   {card}
                 </div>
               ))}
@@ -196,7 +196,7 @@ function FeatureMock({ tag }: { tag: string }) {
         <div className="rounded-lg border border-hairline bg-panel/60 p-3 text-[12px] text-fg-muted">
           Which counterparties signed an NDA in Q1?
         </div>
-        <div className="mt-3 rounded-lg border border-hairline bg-elevated p-4 text-[12px] leading-6">
+        <div className="mt-3 rounded-lg border border-hairline bg-panel p-4 text-[12px] leading-6">
           <div className="text-fg">
             11 counterparties signed an NDA between Jan 1 and Mar 31:
           </div>

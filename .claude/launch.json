@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "dealvisor", "runtimeExecutable": "/Users/rishabhkapadia17/.nvm/versions/node/v20.20.2/bin/npm", "runtimeArgs": ["run", "--prefix", "/Users/rishabhkapadia17/dealvisor-site", "dev"], "port": 3000 }
+  ]
+}

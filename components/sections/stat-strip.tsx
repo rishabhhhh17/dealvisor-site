@@ -13,7 +13,7 @@ const stats: Array<{ to: number; prefix?: string; suffix?: string; decimals?: nu
 
 export function StatStrip() {
   return (
-    <section className="relative border-y border-hairline bg-surface/40 backdrop-blur">
+    <section className="relative border-y border-hairline bg-raised/40 backdrop-blur">
       <div className="dv-container py-12 lg:py-14">
         <Reveal>
           <div className="text-center text-[11px] font-mono uppercase tracking-[0.18em] text-ink-subtle">

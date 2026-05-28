@@ -3,43 +3,42 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --px: 50%;
   --py: 30%;
 }
 
 html, body {
-  background-color: #F8F4EC;
-  color: #101012;
+  background-color: #08080F;
+  color: #F5F5F8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection { background: rgba(41,80,242,0.20); color: #101012; }
+::selection { background: rgba(79,124,255,0.40); color: #F5F5F8; }
 
 @layer components {
   .dv-container { @apply mx-auto w-full max-w-7xl px-6 lg:px-8; }
 
   .dv-eyebrow {
-    @apply relative inline-flex items-center gap-2 rounded-full border border-white/40 px-3 py-1
+    @apply relative inline-flex items-center gap-2 rounded-full px-3 py-1
            text-[11px] font-medium uppercase tracking-[0.14em] text-ink-muted backdrop-blur;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.10);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 -1px 0 0 rgba(16,16,18,0.04) inset,
-      0 6px 14px -8px rgba(16,16,18,0.10);
+      0 1px 0 0 rgba(255,255,255,0.10) inset,
+      0 0 0 1px rgba(0,0,0,0.4);
   }
 
-  /* base button — chrome treatment with specular highlights + press feedback */
+  /* base button */
   .dv-btn {
     @apply relative inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium
-           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dv-blue/50
+           transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dv-blue/60
            focus-visible:ring-offset-2 focus-visible:ring-offset-canvas;
     isolation: isolate;
   }
   .dv-btn:active { transform: translateY(1px) scale(0.985); }
   .dv-btn::after {
-    /* shine sweep on hover */
     content: '';
     position: absolute;
     inset: 0;
@@ -54,51 +53,47 @@ html, body {
   }
   .dv-btn:hover::after { background-position: 150% 0; opacity: 1; }
 
-  /* chrome primary — polished obsidian with VISIBLE curved highlight strip */
+  /* primary — polished white-on-dark chrome with visible curve highlight */
   .dv-btn-primary {
-    @apply dv-btn text-white;
+    @apply dv-btn text-canvas;
     background:
-      /* visible curved highlight strip on top half */
-      linear-gradient(180deg, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.10) 45%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.30) 100%),
-      linear-gradient(180deg, #34343C 0%, #0B0B10 100%);
+      linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.78) 48%, rgba(220,220,232,0.92) 52%, rgba(200,200,215,1) 100%);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.55) inset,
-      0 -1px 0 0 rgba(0,0,0,0.7) inset,
-      0 0 0 1px rgba(16,16,18,0.9),
-      0 10px 22px -8px rgba(16,16,18,0.50),
-      0 22px 44px -20px rgba(41,80,242,0.35);
+      0 1px 0 0 rgba(255,255,255,0.9) inset,
+      0 -1px 0 0 rgba(0,0,0,0.10) inset,
+      0 0 0 1px rgba(0,0,0,0.4),
+      0 14px 32px -10px rgba(0,0,0,0.70),
+      0 22px 44px -20px rgba(79,124,255,0.35);
   }
-  .dv-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+  .dv-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.04); }
 
-  /* glass ghost — REAL frosted glass with visible top reflective strip */
+  /* ghost — frosted dark glass */
   .dv-btn-ghost {
     @apply dv-btn text-ink;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.45) 48%, rgba(255,255,255,0.65) 52%, rgba(255,255,255,0.40) 100%);
-    border: 1px solid rgba(255,255,255,0.85);
-    backdrop-filter: blur(14px) saturate(160%);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.95) inset,
-      0 -1px 0 0 rgba(16,16,18,0.08) inset,
-      0 0 0 1px rgba(16,16,18,0.06),
-      0 14px 28px -16px rgba(16,16,18,0.22);
-  }
-  .dv-btn-ghost:hover { transform: translateY(-1px); }
-
-  /* glass card — chromium surface */
-  .dv-card {
-    @apply relative rounded-2xl p-6;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.55) 100%);
-    border: 1px solid rgba(255,255,255,0.7);
+      linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 48%, rgba(255,255,255,0.06) 52%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.10);
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 -1px 0 0 rgba(16,16,18,0.05) inset,
-      0 0 0 1px rgba(16,16,18,0.05),
-      0 24px 48px -24px rgba(16,16,18,0.20),
-      0 6px 18px -10px rgba(41,80,242,0.10);
+      0 1px 0 0 rgba(255,255,255,0.12) inset,
+      0 0 0 1px rgba(0,0,0,0.4),
+      0 14px 28px -16px rgba(0,0,0,0.6);
+  }
+  .dv-btn-ghost:hover { transform: translateY(-1px); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06)); }
+
+  /* card — dark glass with top-edge highlight */
+  .dv-card {
+    @apply relative rounded-2xl p-6;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    box-shadow:
+      0 1px 0 0 rgba(255,255,255,0.10) inset,
+      0 0 0 1px rgba(0,0,0,0.5),
+      0 24px 48px -24px rgba(0,0,0,0.65),
+      0 8px 24px -12px rgba(79,124,255,0.18);
   }
 
   .dv-divider { @apply h-px w-full bg-gradient-to-r from-transparent via-hairline to-transparent; }
@@ -106,91 +101,61 @@ html, body {
   .dv-pill {
     @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1
            text-[11px] font-mono uppercase tracking-[0.12em] text-ink-muted;
-    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.55));
-    border: 1px solid rgba(255,255,255,0.7);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.10);
     backdrop-filter: blur(6px) saturate(140%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 0 0 1px rgba(16,16,18,0.05);
   }
 
-  /* chrome chip — used for tappable secondary actions */
   .dv-chip {
     @apply relative inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-medium text-ink transition-all;
-    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.65));
-    border: 1px solid rgba(255,255,255,0.8);
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+    border: 1px solid rgba(255,255,255,0.10);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 0 0 1px rgba(16,16,18,0.06),
-      0 4px 12px -6px rgba(16,16,18,0.10);
+      0 1px 0 0 rgba(255,255,255,0.10) inset,
+      0 4px 12px -6px rgba(0,0,0,0.4);
     cursor: pointer;
   }
-  .dv-chip:hover { transform: translateY(-1px); box-shadow:
-    0 1px 0 0 rgba(255,255,255,0.95) inset,
-    0 0 0 1px rgba(41,80,242,0.20),
-    0 8px 18px -8px rgba(41,80,242,0.18); }
+  .dv-chip:hover { transform: translateY(-1px); border-color: rgba(79,124,255,0.40); box-shadow:
+    0 1px 0 0 rgba(255,255,255,0.14) inset,
+    0 0 0 1px rgba(79,124,255,0.20),
+    0 8px 18px -8px rgba(79,124,255,0.30); }
   .dv-chip:active { transform: translateY(0) scale(0.98); }
 
   .dv-chip-active {
-    color: #2950F2;
-    background: linear-gradient(180deg, rgba(41,80,242,0.10), rgba(41,80,242,0.04));
-    border-color: rgba(41,80,242,0.30);
+    color: #FFFFFF;
+    background: linear-gradient(180deg, rgba(79,124,255,0.30), rgba(79,124,255,0.12));
+    border-color: rgba(79,124,255,0.50);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.8) inset,
-      0 0 0 1px rgba(41,80,242,0.25),
-      0 6px 14px -8px rgba(41,80,242,0.25);
+      0 1px 0 0 rgba(255,255,255,0.15) inset,
+      0 0 0 1px rgba(79,124,255,0.40),
+      0 6px 14px -8px rgba(79,124,255,0.40);
   }
 }
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
 
-  /* chrome surface — for app chrome bars, etc */
-  .surface-chrome {
-    background:
-      linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(248,244,236,0.85) 100%);
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.95) inset,
-      0 -1px 0 0 rgba(16,16,18,0.05) inset;
-  }
-  .surface-glass {
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));
-    border: 1px solid rgba(255,255,255,0.7);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.9) inset,
-      0 0 0 1px rgba(16,16,18,0.05);
-  }
-
-  /* small click-press scale used on any clickable */
-  .press { transition: transform 120ms ease; }
-  .press:active { transform: scale(0.97); }
-
-  /* the headline gradient — coral → royal → violet, the brand's signature */
   .text-grad-accent {
-    background-image: linear-gradient(95deg, #FF7A59 0%, #2950F2 45%, #7C5CFF 100%);
+    background-image: linear-gradient(95deg, #FF7A59 0%, #4F7CFF 45%, #7C5CFF 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
   .text-grad-cool {
-    background-image: linear-gradient(95deg, #2950F2 0%, #22D3EE 60%, #34D399 100%);
+    background-image: linear-gradient(95deg, #4F7CFF 0%, #22D3EE 60%, #34D399 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* polished chrome text — silver gradient with animated highlight sweep */
+  /* chrome silver — for the visor word on dark canvas */
   .text-chrome {
     background-image:
-      linear-gradient(180deg, #FFFFFF 0%, #C7C7CE 40%, #6F6F78 55%, #2A2A30 100%);
+      linear-gradient(180deg, #FFFFFF 0%, #D9D9E2 40%, #8A8A98 56%, #C0C0CC 80%, #F0F0F4 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    position: relative;
-    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.6)) drop-shadow(0 2px 8px rgba(16,16,18,0.18));
+    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.10)) drop-shadow(0 2px 16px rgba(255,255,255,0.10));
   }
   .text-chrome-shine {
     position: relative;
@@ -200,7 +165,7 @@ html, body {
     content: attr(data-text);
     position: absolute;
     inset: 0;
-    background-image: linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.95) 50%, transparent 65%);
+    background-image: linear-gradient(105deg, transparent 35%, rgba(255,255,255,1) 50%, transparent 65%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -209,22 +174,21 @@ html, body {
     pointer-events: none;
   }
 
-  /* chrome frame — for wrapping product mockups, panels */
+  /* visible chrome bezel for product mockups */
   .chrome-frame {
     position: relative;
-    padding: 8px;
+    padding: 6px;
     border-radius: 28px;
     background:
-      linear-gradient(180deg, #F5F1E6 0%, #D9D2BF 20%, #FFFFFF 50%, #C9C0AB 80%, #E8E0CE 100%);
+      linear-gradient(180deg, #2A2A38 0%, #3F3F52 18%, #6F6F84 28%, #14141E 48%, #6F6F84 72%, #3F3F52 82%, #1C1C28 100%);
     box-shadow:
-      0 1px 0 0 rgba(255,255,255,0.95) inset,
-      0 -1px 0 0 rgba(16,16,18,0.10) inset,
-      0 0 0 1px rgba(16,16,18,0.10),
-      0 30px 60px -30px rgba(16,16,18,0.35),
-      0 12px 32px -16px rgba(41,80,242,0.20);
+      0 1px 0 0 rgba(255,255,255,0.18) inset,
+      0 -1px 0 0 rgba(0,0,0,0.6) inset,
+      0 0 0 1px rgba(0,0,0,0.7),
+      0 40px 80px -30px rgba(0,0,0,0.85),
+      0 16px 36px -16px rgba(79,124,255,0.32);
   }
   .chrome-frame::before {
-    /* top reflective highlight band */
     content: '';
     position: absolute;
     left: 14%;
@@ -232,44 +196,51 @@ html, body {
     top: 1px;
     height: 14px;
     border-radius: 22px 22px 0 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%);
     pointer-events: none;
   }
   .chrome-frame::after {
-    /* bottom subtle inner shadow */
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 28px;
-    box-shadow: 0 -10px 24px -20px rgba(16,16,18,0.18) inset;
+    box-shadow: 0 -10px 24px -20px rgba(255,255,255,0.10) inset;
     pointer-events: none;
   }
-  .text-grad-ink {
-    background-image: linear-gradient(180deg, #101012 0%, #3F3F46 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+
+  .surface-glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+  }
+  .surface-chrome {
+    background:
+      linear-gradient(180deg, #1C1C28 0%, #12121A 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow:
+      0 1px 0 0 rgba(255,255,255,0.08) inset,
+      0 -1px 0 0 rgba(0,0,0,0.5) inset;
   }
 
   .mask-radial {
     mask-image: radial-gradient(70% 70% at 50% 50%, black 30%, transparent 90%);
     -webkit-mask-image: radial-gradient(70% 70% at 50% 50%, black 30%, transparent 90%);
   }
-
   .grid-bg {
     background-image:
-      linear-gradient(to right, rgba(16,16,18,0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(16,16,18,0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 56px 56px;
   }
 
   .spotlight {
     background:
       radial-gradient(
-        520px circle at var(--px) var(--py),
-        rgba(41, 80, 242, 0.14),
-        rgba(124, 92, 255, 0.10) 30%,
-        rgba(34, 211, 238, 0.06) 55%,
+        560px circle at var(--px) var(--py),
+        rgba(79, 124, 255, 0.18),
+        rgba(124, 92, 255, 0.12) 30%,
+        rgba(34, 211, 238, 0.08) 55%,
         transparent 75%
       );
   }
@@ -283,7 +254,7 @@ html, body {
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(110deg, transparent 35%, rgba(41,80,242,0.45), rgba(124,92,255,0.45), transparent 65%);
+    background: linear-gradient(110deg, transparent 35%, rgba(79,124,255,0.65), rgba(124,92,255,0.65), transparent 65%);
     background-size: 200% 100%;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
@@ -298,6 +269,9 @@ html, body {
   }
   .group:hover > .shimmer-border::before,
   .shimmer-border:hover::before { opacity: 1; animation-play-state: running; }
+
+  .press { transition: transform 120ms ease; }
+  .press:active { transform: scale(0.97); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -317,7 +317,7 @@ function CounterpartiesView() {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search…"
-            className="rounded-full border border-hairline bg-surface pl-7 pr-3 py-1 text-[11px] focus:outline-none focus:border-dv-blue/40"
+            className="rounded-full border border-hairline bg-raised pl-7 pr-3 py-1 text-[11px] focus:outline-none focus:border-dv-blue/40"
           />
         </div>
       </div>
@@ -394,7 +394,7 @@ function KnowledgeView() {
             Live mandates in <span className="text-ink font-medium">{sector}</span>. Comps:{' '}
             <span className="rounded bg-dv-blue/10 px-1.5 py-0.5 font-mono text-dv-blue cursor-pointer hover:bg-dv-blue/15">[[Genoptix]]</span>,{' '}
             <span className="rounded bg-dv-violet/10 px-1.5 py-0.5 font-mono text-dv-violet cursor-pointer hover:bg-dv-violet/15">[[Praxis Pharma]]</span>.{' '}
-            <span className="rounded bg-dv-coral/10 px-1.5 py-0.5 font-mono text-orange-700 cursor-pointer hover:bg-dv-coral/15">[[Apollo Healthcare]]</span> reviewing IM since 12 Feb.
+            <span className="rounded bg-dv-coral/10 px-1.5 py-0.5 font-mono text-orange-300 cursor-pointer hover:bg-dv-coral/15">[[Apollo Healthcare]]</span> reviewing IM since 12 Feb.
           </p>
           <div className="mt-3 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.12em] text-ink-subtle">
             <span>Linked</span>
@@ -448,9 +448,9 @@ function CalendarView() {
     { d: 0, t: '09:30', label: 'Helix CFO follow-up', tone: 'bg-dv-blue/15 text-dv-blue' },
     { d: 0, t: '14:00', label: 'Aurora IM walkthrough', tone: 'bg-dv-violet/15 text-dv-violet' },
     { d: 1, t: '11:00', label: 'Kestrel LOI review', tone: 'bg-dv-blue/15 text-dv-blue' },
-    { d: 2, t: '10:00', label: 'Internal pipeline review', tone: 'bg-dv-mint/15 text-emerald-700' },
-    { d: 3, t: '15:00', label: 'Northwind teaser pitch', tone: 'bg-dv-amber/15 text-amber-700' },
-    { d: 4, t: '09:00', label: 'Meridian intro call', tone: 'bg-dv-coral/15 text-orange-700' },
+    { d: 2, t: '10:00', label: 'Internal pipeline review', tone: 'bg-dv-mint/15 text-emerald-300' },
+    { d: 3, t: '15:00', label: 'Northwind teaser pitch', tone: 'bg-dv-amber/15 text-amber-300' },
+    { d: 4, t: '09:00', label: 'Meridian intro call', tone: 'bg-dv-coral/15 text-orange-300' },
   ];
   return (
     <div>

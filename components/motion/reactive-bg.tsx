@@ -1,10 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-/**
- * Full-page reactive background. Cool mesh blobs over warm cream canvas.
- * Tracks pointer via --px / --py for the .spotlight utility.
- */
 export function ReactiveBackground() {
   const root = useRef<HTMLDivElement>(null);
 
@@ -40,15 +36,15 @@ export function ReactiveBackground() {
 
   return (
     <div ref={root} aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-canvas">
-      {/* drifting cool mesh blobs over warm cream */}
-      <div className="absolute -inset-[15%] bg-mesh-brand opacity-90 blur-3xl animate-mesh-drift" />
-      {/* very subtle grid */}
-      <div className="absolute inset-0 grid-bg mask-radial opacity-40" />
+      {/* vibrant drifting mesh */}
+      <div className="absolute -inset-[15%] bg-mesh-brand opacity-80 blur-3xl animate-mesh-drift" />
+      {/* subtle grid */}
+      <div className="absolute inset-0 grid-bg mask-radial opacity-50" />
       {/* cursor-following spotlight */}
       <div className="absolute inset-0 spotlight" />
-      {/* film grain for tactility */}
-      <div className="absolute inset-0 mix-blend-multiply opacity-[0.05] bg-noise" />
-      {/* fade bottom so footer feels grounded */}
+      {/* film grain */}
+      <div className="absolute inset-0 mix-blend-overlay opacity-[0.07] bg-noise" />
+      {/* fade bottom to ground footer */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-b from-transparent to-canvas" />
     </div>
   );
